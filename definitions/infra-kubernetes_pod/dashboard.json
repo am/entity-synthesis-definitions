@@ -1,0 +1,57 @@
+{
+  "title": "Kubernetes Pod",
+  "widgets": [
+    {
+      "title": "Current status",
+      "nrql": "FROM Metric SELECT latest(k8s.status) as 'status' WHERE metricName = 'k8s.pod.startTime'",
+      "process_as": "billboard",
+      "column": 1,
+      "row": 1,
+      "height": 3,
+      "width": 4,
+      "event_types": null,
+      "facet": null,
+      "customizations": null,
+      "notes": null
+    },
+    {
+      "title": "Status over time",
+      "nrql": "FROM Metric SELECT 1 WHERE metricName = 'k8s.pod.startTime' facet k8s.status TIMESERIES",
+      "process_as": "line_chart",
+      "column": 5,
+      "row": 1,
+      "height": 3,
+      "width": 8,
+      "event_types": null,
+      "facet": null,
+      "customizations": null,
+      "notes": null
+    },
+    {
+      "title": "Pod readiness & status",
+      "nrql": "FROM Metric SELECT min(k8s.pod.isReady) as 'Ready', min(k8s.pod.isScheduled) as 'Scheduled' TIMESERIES",
+      "process_as": "line_chart",
+      "column": 1,
+      "row": 4,
+      "height": 3,
+      "width": 6,
+      "event_types": null,
+      "facet": null,
+      "customizations": null,
+      "notes": null
+    },
+    {
+      "title": "Network",
+      "nrql": "FROM Metric SELECT max(k8s.pod.netRxBytesPerSecond) / 1000 AS 'Received KBps', max(k8s.pod.netTxBytesPerSecond) / 1000 AS 'Transmitted KBps', max(k8s.pod.netErrorsPerSecond) AS 'Errors / sec' TIMESERIES",
+      "process_as": "line_chart",
+      "column": 7,
+      "row": 4,
+      "height": 3,
+      "width": 6,
+      "event_types": null,
+      "facet": null,
+      "customizations": null,
+      "notes": null
+    }
+  ]
+}

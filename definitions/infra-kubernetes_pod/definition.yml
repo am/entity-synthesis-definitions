@@ -1,8 +1,10 @@
 domain: INFRA
 type: KUBERNETES_POD
+
 configuration:
   entityExpirationTime: DAILY
   alertable: true
+
 goldenTags:
   - k8s.status
   - k8s.clusterName
@@ -10,11 +12,13 @@ goldenTags:
   - k8s.nodeName
   - k8s.createdBy
   - k8s.createdKind
+
 compositeMetrics:
   goldenMetrics:
     - golden_metrics.yml
   summaryMetrics:
     - summary_metrics.yml
+
 synthesis:
   identifier: entity.id
   name: k8s.podName
@@ -45,3 +49,7 @@ synthesis:
     host.instanceType:
     aws.region:
       multiValue: false
+
+dashboardTemplates:
+  newRelic:
+    template: dashboard.json
